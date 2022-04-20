@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbsalesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tsales">
+    <Key>
+      <PropertyRef Name="SId" />
+    </Key>
+    <Property Name="SId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SName" Type="nvarchar" MaxLength="50" />
+    <Property Name="SQuantity" Type="nvarchar" MaxLength="50" />
+    <Property Name="SSellingprice" Type="int" />
+    <Property Name="PReduce" Type="int" />
+    <Property Name="CName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="CAddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="date" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="dbsalesModelStoreContainer">
+    <EntitySet Name="tsales" EntityType="Self.tsales" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

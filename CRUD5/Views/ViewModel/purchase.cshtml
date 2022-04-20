@@ -1,0 +1,60 @@
+﻿@model CRUD5.Models.AllViewModel
+
+@using (Html.BeginForm("purchasecreate", "ViewModel", FormMethod.Get))
+{
+    <h2>進貨紀錄</h2>
+    @Html.Label("產品編號：");
+    @Html.TextBox("id") <!-- TextBox裡的tag -->
+    <input type="submit" value="新增進貨" />
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>進貨編號</th> <!-- 標題 -->
+            <th>名稱</th>
+            <th>單位</th>
+            <th>進價</th>
+            <th>增加量</th>
+            <th>廠商名稱</th>
+            <th>廠商電話</th>
+            <th>廠商地址</th>
+            <th>日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.vpurchase.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">
+                    查無資料
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model.vpurchase)
+            {
+                <tr>
+                    <td>@item.PId</td> <!-- 依序放置 -->
+                    <td>@item.PName</td>
+                    <td>@item.PQuantity</td>
+                    <td>@item.PPurchaseprice</td>
+                    <td>@item.PAdd</td>
+                    <td>@item.EName</td>
+                    <td>@item.EPhone</td>
+                    <td>@item.EAddress</td>
+                    <td>@item.date</td>
+                    <td>
+                        @Html.ActionLink("刪除紀錄", "purchasedelete", new { id = item.PId })
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+<div>
+    @Html.ActionLink("返回", "index", "Home")
+</div>

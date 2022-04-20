@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbpurchaseModelStoreContainer" CdmEntityContainer="dbpurchaseEntities2">
+    <EntitySetMapping Name="tpurchase">
+      <EntityTypeMapping TypeName="dbpurchaseModel.tpurchase">
+        <MappingFragment StoreEntitySet="tpurchase">
+          <ScalarProperty Name="PId" ColumnName="PId" />
+          <ScalarProperty Name="PName" ColumnName="PName" />
+          <ScalarProperty Name="PQuantity" ColumnName="PQuantity" />
+          <ScalarProperty Name="PPurchaseprice" ColumnName="PPurchaseprice" />
+          <ScalarProperty Name="PAdd" ColumnName="PAdd" />
+          <ScalarProperty Name="EName" ColumnName="EName" />
+          <ScalarProperty Name="EPhone" ColumnName="EPhone" />
+          <ScalarProperty Name="EAddress" ColumnName="EAddress" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

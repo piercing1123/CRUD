@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbproductModelStoreContainer" CdmEntityContainer="dbproductEntities">
+    <EntitySetMapping Name="tproduct">
+      <EntityTypeMapping TypeName="dbproductModel.tproduct">
+        <MappingFragment StoreEntitySet="tproduct">
+          <ScalarProperty Name="PId" ColumnName="PId" />
+          <ScalarProperty Name="PName" ColumnName="PName" />
+          <ScalarProperty Name="PQuantity" ColumnName="PQuantity" />
+          <ScalarProperty Name="PPurchaseprice" ColumnName="PPurchaseprice" />
+          <ScalarProperty Name="PSellingprice" ColumnName="PSellingprice" />
+          <ScalarProperty Name="PInventory" ColumnName="PInventory" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

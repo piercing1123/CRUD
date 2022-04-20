@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CRUD5.Models.tproduct>
+<br />
+<br />       <!-- 提交(方法,控制器名稱,提交方式) -->
+@using (Html.BeginForm("productsearch", "Home", FormMethod.Get))
+{
+    @Html.TextBox("searching") <!-- TextBox裡的tag -->
+    <input type="submit" value="搜尋" />
+}
+<br />
+<p>@Html.ActionLink("新增資料", "productcreate")</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>產品編號</th>  <!-- 標題 -->
+            <th>產品名稱</th>
+            <th>單位</th>
+            <th>進貨價</th>
+            <th>售價</th>
+            <th>庫存量</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">
+                    查無資料
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.PId</td>  <!-- 依序放置 -->
+                    <td>@item.PName</td>
+                    <td>@item.PQuantity</td>
+                    <td>@item.PPurchaseprice</td>
+                    <td>@item.PSellingprice</td>
+                    <td>@item.PInventory</td>
+                    <td>
+                        @Html.ActionLink("修改", "productedit", new { id = item.PId }) |
+                        @Html.ActionLink("刪除", "productdelete", new { id = item.PId })
+                    </td>
+                </tr> 
+            }
+        }
+    </tbody>
+</table>
+
+<div>
+    @Html.ActionLink("返回", "index")
+</div>
