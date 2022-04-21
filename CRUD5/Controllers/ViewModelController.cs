@@ -9,25 +9,24 @@ namespace CRUD5.Controllers
 {
     public class ViewModelController : Controller
     {
-        dbcustomerEntities cdb = new dbcustomerEntities();
-        dbemployeeEntities edb = new dbemployeeEntities();
-        dbproductEntities pdb = new dbproductEntities();      //建立物件
-        dbpurchaseEntities2 purdb = new dbpurchaseEntities2();
-        dbsalesEntities sdb = new dbsalesEntities();
+        //建立資料庫連結
+        dbcustomerEntities cdb = new dbcustomerEntities();  //客戶
+        dbemployeeEntities edb = new dbemployeeEntities();  //廠商
+        dbproductEntities pdb = new dbproductEntities();    //產品
+        dbpurchaseEntities2 purdb = new dbpurchaseEntities2(); //進貨
+        dbsalesEntities sdb = new dbsalesEntities();           //銷貨
         // GET: AllModels
-        public ActionResult Index()
-        {
-            AllViewModel all = new AllViewModel();
-            return View(all);
-        }
-
-        public ActionResult purchase()  //進貨資料
+       
+        /// <summary>
+        /// 進貨資料
+        /// </summary>
+        public ActionResult purchase()  //首頁
         {
             AllViewModel all = new AllViewModel();
             return View(all);          
         }
 
-        public ActionResult purchasecreate(int id)  //新增進貨資料
+        public ActionResult purchasecreate(int id)  //新增
         {
             AllViewModel all = new AllViewModel();
             var product = pdb.tproduct.Where(m => m.PId == id).FirstOrDefault();  //篩選產品資料        
@@ -43,11 +42,11 @@ namespace CRUD5.Controllers
                 ViewBag.product_Quantity = "";
                 ViewBag.product_Purchaseprice = null;
             }
-            var employee = edb.temployee.ToList();   //DB轉為SelectListItem
+            var employee = edb.temployee.ToList();   //DB資料轉為SelectListItem給下拉清單用
             ViewBag.employeeName = (from item in edb.temployee select new SelectListItem
             {
-                Text = item.EName,
-                Value = item.EName
+                Text = item.EName,  //顯示的文字
+                Value = item.EName  //傳的值的文字
             });
             ViewBag.employeePhone = (from item in edb.temployee select new SelectListItem
             {
@@ -62,19 +61,19 @@ namespace CRUD5.Controllers
             return View(all);
         }
         [HttpPost]
-        public ActionResult purchasecreate(AllViewModel vPurchase)//接收新的值
+        public ActionResult purchasecreate(AllViewModel vPurchase) //接收值
         {
-            string name = vPurchase.purchase.PName;  //取得產品           
+            string name = vPurchase.purchase.PName;  //取得產品名稱
             var product = pdb.tproduct.Where(m => m.PName == name).FirstOrDefault();  //抓取資料
             product.PInventory = product.PInventory + vPurchase.purchase.PAdd;  //庫存增加
             vPurchase.purchase.date = DateTime.Now;  //帶入日期
-            purdb.tpurchase.Add(vPurchase.purchase);  //增加一筆進貨紀錄
+            purdb.tpurchase.Add(vPurchase.purchase); //增加一筆進貨紀錄
             pdb.SaveChanges();  //存檔
             purdb.SaveChanges();
             return RedirectToAction("purchase");
         }
 
-        public ActionResult purchasedelete(int id)  //刪除進貨資料
+        public ActionResult purchasedelete(int id)  //刪除
         {
             var purchase = purdb.tpurchase.Where(b => b.PId == id).FirstOrDefault();  //抓取id的那筆資料
             purdb.tpurchase.Remove(purchase);
@@ -82,12 +81,15 @@ namespace CRUD5.Controllers
             return RedirectToAction("purchase");
         }
 
-        public ActionResult sales(string searching)  //查詢銷貨資料
+        /// <summary>
+        /// 銷貨資料
+        /// </summary>
+        public ActionResult sales()  //首頁
         {
             AllViewModel all = new AllViewModel();
             return View(all);
         }
-        public ActionResult salescreate(int id)  //新增銷貨資料
+        public ActionResult salescreate(int id)  //新增
         {
             AllViewModel all = new AllViewModel();
             var product = pdb.tproduct.Where(m => m.PId == id).FirstOrDefault();  //篩選產品資料        
@@ -103,7 +105,7 @@ namespace CRUD5.Controllers
                 ViewBag.product_Quantity = "";
                 ViewBag.product_Purchaseprice = null;
             }
-            var customer = cdb.tcustomer.ToList();   //DB轉為SelectListItem
+            var customer = cdb.tcustomer.ToList();   //DB資料轉為SelectListItem給下拉清單用
             ViewBag.customerName = (from item in cdb.tcustomer select new SelectListItem
             {
                 Text = item.CName,
@@ -122,23 +124,23 @@ namespace CRUD5.Controllers
             return View(all);
         }
         [HttpPost]
-        public ActionResult salescreate(AllViewModel vSales) //接收新的值
+        public ActionResult salescreate(AllViewModel vSales) //接收值
         {
-            string name = vSales.sales.SName;  //取得產品           
+            string name = vSales.sales.SName;  //取得產品名稱          
             var product = pdb.tproduct.Where(m => m.PName == name).FirstOrDefault();  //抓取資料
-            product.PInventory = product.PInventory + vSales.sales.SSellingprice;  //庫存減少
-            if (product.PInventory < 0)  //如果為負
-                product.PInventory = 0;
+            product.PInventory = product.PInventory - vSales.sales.PReduce;  //庫存減少
+            if (product.PInventory < 0)  //如果存量為負
+            { product.PInventory = 0; }
             vSales.sales.date = DateTime.Now;  //帶入日期
-            sdb.tsales.Add(vSales.sales);        //增加一筆進貨紀錄
+            sdb.tsales.Add(vSales.sales);      //增加一筆銷貨紀錄
             pdb.SaveChanges();  //存檔
             sdb.SaveChanges();
             return RedirectToAction("sales");
         }
-        public ActionResult salesdelete(int id)  //刪除銷貨資料
+        public ActionResult salesdelete(int id)  //刪除
         {
-            var purchase = sdb.tsales.Where(b => b.SId == id).FirstOrDefault();  //抓取id的那筆資料
-            sdb.tsales.Remove(purchase);
+            var sales = sdb.tsales.Where(b => b.SId == id).FirstOrDefault();  //抓取id的那筆資料
+            sdb.tsales.Remove(sales);
             sdb.SaveChanges();
             return RedirectToAction("sales");
         }

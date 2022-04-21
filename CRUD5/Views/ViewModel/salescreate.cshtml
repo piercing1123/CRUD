@@ -5,79 +5,85 @@
 }
 
 <h2>新增銷貨</h2>
+<body style="background-color: #FFEEDD;">
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.sales.SName, "產品名稱", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.sales.SName, new { @Value = ViewBag.product_Name, @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.sales.SName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.sales.SQuantity, "單位", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.sales.SQuantity, new { @Value = ViewBag.product_Quantity, @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.sales.SQuantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.sales.SSellingprice, "售價", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.sales.SSellingprice, new { @Value = ViewBag.product_Purchaseprice, @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.sales.SSellingprice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.sales.PReduce, "銷貨量", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.sales.PReduce, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sales.PReduce, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.sales.CName, "顧客名稱", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.sales.CName, (IEnumerable<SelectListItem>)ViewBag.customerName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.sales.CName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.sales.CPhone, "顧客電話", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.sales.CPhone, (IEnumerable<SelectListItem>)ViewBag.customerPhone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.sales.CPhone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.sales.CAddress, "顧客地址", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.sales.CAddress, (IEnumerable<SelectListItem>)ViewBag.customerAddress, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.sales.CAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.sales.SName, "產品名稱", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.sales.SName, new { @Value = ViewBag.product_Name, @readonly = "readonly" })
-                @Html.ValidationMessageFor(model => model.sales.SName, "", new { @class = "text-danger" })
+            <div class="col-md-offset-2 col-md-10">
+                @if (ViewBag.product_Name != "無此產品")
+                {
+                    <input type="submit" value="新增" class="btn btn-default" />
+                }
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.sales.SQuantity, "單位", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.sales.SQuantity, new { @Value = ViewBag.product_Quantity, @readonly = "readonly" })
-                @Html.ValidationMessageFor(model => model.sales.SQuantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.sales.SSellingprice, "售價", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.sales.SSellingprice, new { @Value = ViewBag.product_Purchaseprice, @readonly = "readonly" })
-                @Html.ValidationMessageFor(model => model.sales.SSellingprice, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.sales.PReduce, "銷貨量", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.sales.PReduce, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.sales.PReduce, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.sales.CName, "顧客名稱", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.sales.CName, (IEnumerable<SelectListItem>)ViewBag.customerName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.sales.CName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.sales.CPhone, "顧客電話", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.sales.CPhone, (IEnumerable<SelectListItem>)ViewBag.customerPhone, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.sales.CPhone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.sales.CAddress, "顧客地址", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.sales.CAddress, (IEnumerable<SelectListItem>)ViewBag.customerAddress, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.sales.CAddress, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+    }
+    <div>
+        <button type="button" class="btn btn-outline-info btn-lg">
+            @Html.ActionLink("返回", "sales")
+        </button>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="新增" class="btn btn-default" />
-        </div>
-    </div>
-}
-<div>
-    @Html.ActionLink("返回", "sales")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</body>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

@@ -7,54 +7,58 @@
     @Html.TextBox("id") <!-- TextBox裡的tag -->
     <input type="submit" value="新增銷貨" />
 }
+<body style="background-color: #FFEEDD;">
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>銷貨編號</th> <!-- 標題 -->
-            <th>名稱</th>
-            <th>單位</th>
-            <th>售價</th>
-            <th>增加量</th>
-            <th>顧客名稱</th>
-            <th>顧客電話</th>
-            <th>顧客地址</th>
-            <th>日期</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.vsales.Count() == 0)
-        {
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td colspan="3" style="color:red">
-                    查無資料
-                </td>
+                <th>銷貨編號</th> <!-- 標題 -->
+                <th>名稱</th>
+                <th>單位</th>
+                <th>售價</th>
+                <th>銷售量</th>
+                <th>顧客名稱</th>
+                <th>顧客電話</th>
+                <th>顧客地址</th>
+                <th>日期</th>
             </tr>
-        }
-        else
-        {
-            foreach (var item in Model.vsales)
+        </thead>
+        <tbody>
+            @if (Model.vsales.Count() == 0)
             {
                 <tr>
-                    <td>@item.SId</td> <!-- 依序放置 -->
-                    <td>@item.SName</td>
-                    <td>@item.SQuantity</td>
-                    <td>@item.SSellingprice</td>
-                    <td>@item.PReduce</td>
-                    <td>@item.CName</td>
-                    <td>@item.CPhone</td>
-                    <td>@item.CAddress</td>
-                    <td>@item.date</td>
-                    <td>
-                        @Html.ActionLink("刪除紀錄", "salesdelete", new { id = item.SId })
+                    <td colspan="3" style="color:red">
+                        查無資料
                     </td>
                 </tr>
             }
-        }
+            else
+            {
+                foreach (var item in Model.vsales)
+                {
+                    <tr>
+                        <td>@item.SId</td> <!-- 依序放置 -->
+                        <td>@item.SName</td>
+                        <td>@item.SQuantity</td>
+                        <td>@item.SSellingprice</td>
+                        <td>@item.PReduce</td>
+                        <td>@item.CName</td>
+                        <td>@item.CPhone</td>
+                        <td>@item.CAddress</td>
+                        <td>@item.date</td>
+                        <td>
+                            @Html.ActionLink("刪除紀錄", "salesdelete", new { id = item.SId })
+                        </td>
+                    </tr>
+                }
+            }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<div>
-    @Html.ActionLink("返回", "index", "Home")
-</div>
+    <div>
+        <button type="button" class="btn btn-outline-info btn-lg">
+            @Html.ActionLink("返回", "index", "Home")
+        </button>
+    </div>
+</body>
