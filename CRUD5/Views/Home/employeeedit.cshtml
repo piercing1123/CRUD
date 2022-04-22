@@ -6,7 +6,6 @@
 
 <h2>修改廠商資料</h2>
 
-<body style="background-color: #FFEEDD;">
 
     @using (Html.BeginForm())
     {
@@ -50,11 +49,9 @@
     }
 
     <div>
-        <button type="button" class="btn btn-outline-info btn-lg">
             @Html.ActionLink("返回", "employeesearch")
-        </button>
     </div>
-</body>
+
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }

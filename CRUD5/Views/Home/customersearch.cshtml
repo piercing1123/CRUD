@@ -3,53 +3,48 @@
 <br />       <!-- 提交(方法,控制器名稱,提交方式) -->
 @using (Html.BeginForm("customersearch", "Home", FormMethod.Get))
 {
-    @Html.TextBox("searching") <!-- TextBox裡的tag -->
+    <head>輸入姓名：</head>@Html.TextBox("searching") <!-- TextBox裡的tag -->
     <input type="submit" value="搜尋" />
 }
 <br />
 <p>@Html.ActionLink("新增資料", "customercreate")</p>
-<body style="background-color: #FFEEDD;">
-
-    <table class="table table-striped">
-        <thead>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>客戶編號</th> <!-- 標題 -->
+            <th>客戶名稱</th>
+            <th>客戶電話</th>
+            <th>客戶地址</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
             <tr>
-                <th>客戶編號</th> <!-- 標題 -->
-                <th>客戶名稱</th>
-                <th>客戶電話</th>
-                <th>客戶地址</th>
+                <td colspan="3" style="color:red">
+                    查無資料
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @if (Model.Count() == 0)
+        }
+        else
+        {
+            foreach (var item in Model)
             {
                 <tr>
-                    <td colspan="3" style="color:red">
-                        查無資料
+                    <td>@item.CId</td> <!-- 依序放置 -->
+                    <td>@item.CName</td>
+                    <td>@item.CPhone</td>
+                    <td>@item.CAddress</td>
+                    <td>
+                        @Html.ActionLink("修改", "customeredit", new { id = item.CId }) |
+                        @Html.ActionLink("刪除", "customerdelete", new { id = item.CId })
                     </td>
                 </tr>
             }
-            else
-            {
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.CId</td> <!-- 依序放置 -->
-                        <td>@item.CName</td>
-                        <td>@item.CPhone</td>
-                        <td>@item.CAddress</td>
-                        <td>
-                            @Html.ActionLink("修改", "customeredit", new { id = item.CId }) |
-                            @Html.ActionLink("刪除", "customerdelete", new { id = item.CId })
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
-    <div>
-        <button type="button" class="btn btn-outline-info btn-lg">
-            @Html.ActionLink("返回", "index")
-        </button>
-    </div>
-</body>
+<div>
+    @Html.ActionLink("返回", "index", null, new { @class = "btn btn-info btn-lg" })
+</div>

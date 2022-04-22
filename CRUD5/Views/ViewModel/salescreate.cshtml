@@ -5,7 +5,6 @@
 }
 
 <h2>新增銷貨</h2>
-<body style="background-color: #FFEEDD;">
 
     @using (Html.BeginForm())
     {
@@ -79,11 +78,9 @@
         </div>
     }
     <div>
-        <button type="button" class="btn btn-outline-info btn-lg">
             @Html.ActionLink("返回", "sales")
-        </button>
     </div>
-</body>
+
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }

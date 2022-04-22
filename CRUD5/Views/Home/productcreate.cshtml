@@ -6,8 +6,6 @@
 
 <h2>新增產品資料</h2>
 
-<body style="background-color: #FFEEDD;">
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -63,12 +61,10 @@
         </div>
     }
 
-    <div>
-        <button type="button" class="btn btn-outline-info btn-lg">
-            @Html.ActionLink("返回", "productsearch")
-        </button>
+    <div>  
+            @Html.ActionLink("返回", "productsearch")   
     </div>
-</body>
+
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }

@@ -5,9 +5,6 @@
 }
 
 <h2>新增客戶資料</h2>
-<body style="background-color: #FFEEDD;">
-
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -47,12 +44,10 @@
         </div>
     }
 
-    <div>
-        <button type="button" class="btn btn-outline-info btn-lg">
-            @Html.ActionLink("返回", "customersearch")
-        </button>
+    <div>     
+            @Html.ActionLink("返回", "customersearch")   
     </div>
-</body>
+
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
